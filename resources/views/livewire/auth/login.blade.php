@@ -40,7 +40,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
         RateLimiter::clear($this->throttleKey());
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
     }
 
     /**
@@ -73,56 +73,56 @@ new #[Layout('components.layouts.auth')] class extends Component {
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
-    <x-auth-header title="Log in to your account" description="Enter your email and password below to log in" />
+<div class="body-sign">
+    <div class="center-sign">
+        <a href="{{ url('/') }}" class="logo float-start">
+            <img src="{{ asset('img/logo.png') }}" height="70" alt="Porto Admin" />
+        </a>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="text-center" :status="session('status')" />
+        <div class="panel card-sign">
+            <div class="card-title-sign mt-3 text-end">
+                <h2 class="title text-uppercase font-weight-bold m-0">
+                    <i class="bx bx-user-circle me-1 text-6 position-relative top-5"></i> Sign In
+                </h2>
+            </div>
+            <div class="card-body">
+                <form wire:submit.prevent="login">
+                    @csrf
+                    <div class="form-group mb-3">
+                        <label>Email</label>
+                        <div class="input-group">
+                            <input wire:model="email" name="email" type="email" class="form-control form-control-lg" placeholder="email@example.com" required autofocus />
+                            <span class="input-group-text">
+								<i class="bx bx-user text-4"></i>
+							</span>
+                        </div>
+                    </div>
 
-    <form wire:submit="login" class="flex flex-col gap-6">
-        <!-- Email Address -->
-        <flux:input
-            wire:model="email"
-            :label="__('Email address')"
-            type="email"
-            name="email"
-            required
-            autofocus
-            autocomplete="email"
-            placeholder="email@example.com"
-        />
+                    <div class="form-group mb-3">
+                        <div class="clearfix">
+                            <label class="float-start">Password</label>
+                            <a href="{{ route('password.request') }}" class="float-end">Lost Password?</a>
+                        </div>
+                        <div class="input-group">
+                            <input wire:model="password" name="password" type="password" class="form-control form-control-lg" placeholder="Password" required />
+                            <span class="input-group-text">
+								<i class="bx bx-lock text-4"></i>
+							</span>
+                        </div>
+                    </div>
 
-        <!-- Password -->
-        <div class="relative">
-            <flux:input
-                wire:model="password"
-                :label="__('Password')"
-                type="password"
-                name="password"
-                required
-                autocomplete="current-password"
-                placeholder="Password"
-            />
+                    <div class="row">
+                        <div class="col-sm-8">
 
-            @if (Route::has('password.request'))
-                <flux:link class="absolute right-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </flux:link>
-            @endif
+                        </div>
+                        <div class="col-sm-4 text-end">
+                            <button type="submit" class="btn btn-primary mt-2">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <!-- Remember Me -->
-        <flux:checkbox wire:model="remember" :label="__('Remember me')" />
-
-        <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
-        </div>
-    </form>
-
-    @if (Route::has('register'))
-      <div class="space-x-1 text-center text-sm text-zinc-600 dark:text-zinc-400">
-          Don't have an account?
-          <flux:link :href="route('register')" wire:navigate>Sign up</flux:link>
-      </div>
-    @endif
+        <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2023. All Rights Reserved.</p>
+    </div>
 </div>
