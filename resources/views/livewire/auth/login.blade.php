@@ -82,14 +82,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <div class="panel card-sign">
             <div class="card-title-sign mt-3 text-end">
                 <h2 class="title text-uppercase font-weight-bold m-0">
-                    <i class="bx bx-user-circle me-1 text-6 position-relative top-5"></i> Sign In
+                    <i class="bx bx-user-circle me-1 text-6 position-relative top-5"></i> Login
                 </h2>
             </div>
             <div class="card-body">
                 <form wire:submit.prevent="login">
                     @csrf
                     <div class="form-group mb-3">
-                        <label>Email</label>
+                        <label>{{__('app.username')}}</label>
                         <div class="input-group">
                             <input wire:model="email" name="email" type="email" class="form-control form-control-lg" placeholder="email@example.com" required autofocus />
                             <span class="input-group-text">
@@ -100,8 +100,8 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
                     <div class="form-group mb-3">
                         <div class="clearfix">
-                            <label class="float-start">Password</label>
-                            <a href="{{ route('password.request') }}" class="float-end">Lost Password?</a>
+                            <label class="float-start">{{__('app.password')}}</label>
+                            <a href="{{ route('password.request') }}" class="float-end">{{__('app.lost_password')}}</a>
                         </div>
                         <div class="input-group">
                             <input wire:model="password" name="password" type="password" class="form-control form-control-lg" placeholder="Password" required />
@@ -116,13 +116,13 @@ new #[Layout('components.layouts.auth')] class extends Component {
 
                         </div>
                         <div class="col-sm-4 text-end">
-                            <button type="submit" class="btn btn-primary mt-2">Sign In</button>
+                            <button type="submit" class="btn btn-primary mt-2">{{__('app.sign_in')}}</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
 
-        <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2023. All Rights Reserved.</p>
+        <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2023. {{__('app.all_rights_reserved')}}.</p>
     </div>
 </div>
